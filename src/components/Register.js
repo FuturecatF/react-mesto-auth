@@ -4,7 +4,6 @@ import { Link, withRouter } from "react-router-dom";
 function Register({ onRegister }) {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
-  
 
   function handleChangeEmail(e) {
     setEmail(e.target.value);

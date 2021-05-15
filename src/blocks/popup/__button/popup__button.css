@@ -25,19 +25,18 @@
   }
 }
 
-
 .popup__button:focus {
-  opacity: .8;
+  opacity: 0.8;
 }
 
 @media (hover: hover) {
   .popup__button:hover {
-    opacity: .8;
+    opacity: 0.8;
   }
 }
 
 @media (hover: none) {
   .popup__button:active {
-    opacity: .8;
+    opacity: 0.8;
   }
 }

@@ -184,12 +184,6 @@ function App() {
 
   React.useEffect(() => {
     handleTokenCheck();
-    api
-      .getUserProfile()
-      .then((data) => {
-        setCurrentUser(data);
-      })
-      .catch((err) => console.log(err));
   }, []);
 
   const handleTokenCheck = () => {
@@ -214,7 +208,7 @@ function App() {
           return console.log("error 500");
         });
     }
-  }
+  };
 
   React.useEffect(() => {
     if (isLoggedIn) {

@@ -184,7 +184,7 @@ function App() {
 
   React.useEffect(() => {
     handleTokenCheck();
-  }, []);
+  }, [isLoggedIn]);
 
   const handleTokenCheck = () => {
     const jwt = localStorage.getItem("jwt");
@@ -195,7 +195,6 @@ function App() {
           if (data) {
             setEmail(data.data.email);
             setIsLoggedIn(true);
-            history.push("/");
           }
         })
         .catch((err) => {

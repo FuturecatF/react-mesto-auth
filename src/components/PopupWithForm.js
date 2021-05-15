@@ -20,7 +20,6 @@ function PopupWithForm({
             type='submit'
             disabled={isSaving ? true : false}
           >
-            {" "}
             {isSaving ? "Загрузка..." : buttonText}
           </button>
         </form>

@@ -2,6 +2,8 @@
   cursor: pointer;
   text-decoration: none;
   color: #ffffff;
+  padding: 0;
+  margin: auto;
 }
 
 @media (hover: hover) {

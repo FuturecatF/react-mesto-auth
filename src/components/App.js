@@ -16,17 +16,20 @@ import Login from "./Login";
 import Register from "./Register";
 import InfoTooltip from "./InfoTooltip";
 import * as auth from "../utils/auth";
-import registrationOk from "../images/reg-ok.svg";
-import registrationNotOk from "../images/reg-notOk.svg";
+import successIcon from "../images/successIcon.svg";
+import unSuccessIcon from "../images/unSuccessIcon.svg";
 
 function App() {
-  const [isEditProfilePopupOpen, setEditProfileClick] = React.useState(false);
-  const [isAddPlacePopupOpen, setAddPlaceClick] = React.useState(false);
-  const [isEditAvatarPopupOpen, setEditAvatarClick] = React.useState(false);
-  const [isConfirmPopupOpen, setConfirmClick] = React.useState(false);
-  const [isInfoTooltipPopupOpen, setInfoTooltipClick] = React.useState(false);
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] =
+    React.useState(false);
+  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] =
+    React.useState(false);
+  const [isConfirmPopupOpen, setIsConfirmPopupOpen] = React.useState(false);
+  const [isInfoTooltipPopupOpen, setIsInfoTooltipPopupOpen] =
+    React.useState(false);
   const [selectedCard, setSelectedCard] = React.useState({});
-  const [currentUser, setCurrentUser] = React.useState([]);
+  const [currentUser, setCurrentUser] = React.useState({});
   const [cards, setInitialCards] = React.useState([]);
   const [isSaving, setIsSaving] = React.useState(false);
   const [deletedCard, setDeletedCard] = React.useState({});
@@ -48,31 +51,36 @@ function App() {
 
   function handleCardLike(card) {
     const isLiked = card.likes.some((i) => i._id === currentUser._id);
-    api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
-      setInitialCards((state) =>
-        state.map((c) => (c._id === card._id ? newCard : c))
-      );
-    });
+    api
+      .changeLikeCardStatus(card._id, !isLiked)
+      .then((newCard) => {
+        setInitialCards((state) =>
+          state.map((c) => (c._id === card._id ? newCard : c))
+        );
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   function handleEditAvatarClick() {
-    setEditAvatarClick(true);
+    setIsEditAvatarPopupOpen(true);
   }
 
   function handleEditProfileClick() {
-    setEditProfileClick(true);
+    setIsEditProfilePopupOpen(true);
   }
 
   function handleAddPlaceClick() {
-    setAddPlaceClick(true);
+    setIsAddPlacePopupOpen(true);
   }
 
   function closeAllPopups() {
-    setEditProfileClick(false);
-    setAddPlaceClick(false);
-    setEditAvatarClick(false);
-    setConfirmClick(false);
-    setInfoTooltipClick(false);
+    setIsEditProfilePopupOpen(false);
+    setIsAddPlacePopupOpen(false);
+    setIsEditAvatarPopupOpen(false);
+    setIsConfirmPopupOpen(false);
+    setIsInfoTooltipPopupOpen(false);
     setSelectedCard({});
     setDeletedCard({});
   }
@@ -82,7 +90,7 @@ function App() {
   }
 
   function handleDeleteClick(card) {
-    setConfirmClick(true);
+    setIsConfirmPopupOpen(true);
     setDeletedCard(card);
   }
 
@@ -141,20 +149,20 @@ function App() {
       .getRegister(password, email)
       .then(() => {
         handleInfoTooltipContent({
-          img: registrationOk,
+          img: successIcon,
           text: "Вы успешно зарегистрировались!",
         });
 
-        setInfoTooltipClick(true);
+        setIsInfoTooltipPopupOpen(true);
         history.push("/sign-in");
         setTimeout(closeAllPopups, 2500);
       })
       .catch((err) => {
         handleInfoTooltipContent({
-          img: registrationNotOk,
+          img: unSuccessIcon,
           text: "Что-то пошло не так! Попробуйте ещё раз.",
         });
-        setInfoTooltipClick(true);
+        setIsInfoTooltipPopupOpen(true);
         console.log(err);
       });
   }
@@ -167,15 +175,12 @@ function App() {
         setIsLoggedIn(true);
         setEmail(email);
         history.push("/");
-        handleTokenCheck();
       })
       .catch((err) => {
         console.log(err.status);
         if (err.status === 400) {
-          setIsLoggedIn(false);
           return console.log("не передано одно из полей");
         } else if (err.status === 401) {
-          setIsLoggedIn(false);
           return console.log("пользователь с email не найден");
         }
         return console.log("error 500");

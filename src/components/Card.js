@@ -29,13 +29,12 @@ function Card({ card, onCardLike, onCardDelete, onCardClick }) {
       <div onClick={handleClick}>
         <img className='element__photo' src={card.link} alt={card.name} />
       </div>
-      <button
+      {isOwn && <button
         className={cardDeleteButtonClassName}
-        style={isOwn ? {} : { display: "none" }}
         type='button'
         aria-label='Удалить'
         onClick={handleDeleteClick}
-      ></button>
+      ></button> }
       <div className='element__footer'>
         <h2 className='element__subtitle'>{card.name}</h2>
         <div className='element__likes-container'>

@@ -20,10 +20,12 @@ function AddPlacePopup({ onAddPlace, isOpen, onClose, isSaving }) {
       name: name,
       link: image,
     });
+  }
 
+  React.useEffect(() => {
     setName("");
     setImage("");
-  }
+  }, [isOpen])
 
   return (
     <PopupWithForm

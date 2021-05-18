@@ -17,7 +17,7 @@ import Register from "./Register";
 import InfoTooltip from "./InfoTooltip";
 import * as auth from "../utils/auth";
 import successIcon from "../images/successIcon.svg";
-import unSuccessIcon from "../images/unSuccessIcon.svg";
+import errorIcon from "../images/errorIcon.svg";
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] =
@@ -159,7 +159,7 @@ function App() {
       })
       .catch((err) => {
         handleInfoTooltipContent({
-          img: unSuccessIcon,
+          img: errorIcon,
           text: "Что-то пошло не так! Попробуйте ещё раз.",
         });
         setIsInfoTooltipPopupOpen(true);
@@ -183,7 +183,7 @@ function App() {
         } else if (err.status === 401) {
           return console.log("пользователь с email не найден");
         }
-        return console.log("error 500");
+        return console.log(err.status);
       });
   }
 

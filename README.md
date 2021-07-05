@@ -1,4 +1,4 @@
-# Проект [Mesto-React](https://futurecatf.github.io/mesto-react/) о чудесных местах.
+# Проект [Mesto-React](https://futurecatf.github.io/react-mesto-auth/) о чудесных местах.
 
 ### Можно добавлять карточки с картинкой и названием и сохранять воспоминания! <br>
 
